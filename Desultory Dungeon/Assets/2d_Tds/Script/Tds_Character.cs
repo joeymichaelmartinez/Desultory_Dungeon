@@ -18,6 +18,11 @@ public class Tds_Character : MonoBehaviour {
 	public bool IsCharacter = false;
 	public List<WeaponName> ListWeaponsName;				//choose which weapon will be instantied for this player
 	public float WalkSpeed = 1f;
+
+
+    /***Changes****/
+    public float rotateSpeed;
+
 	public Animator vLegAnimator;
 	public GameObject vBodyObj;
 	public Animator vBodyAnimator;
@@ -442,7 +447,16 @@ public class Tds_Character : MonoBehaviour {
 				//rotate the body correctly
 				//can only look at the player if he can see it
 				if (CanRotateBody())
-					vBodyObj.transform.rotation = Quaternion.Slerp (vBodyObj.transform.rotation, newRotation, 1f);
+                {
+                    if(IsPlayer)
+                    {
+                        vBodyObj.transform.rotation = Quaternion.Slerp(vBodyObj.transform.rotation, newRotation, 1000f);
+                    }
+                    else
+                    {
+                       vBodyObj.transform.rotation = Quaternion.Slerp(vBodyObj.transform.rotation, newRotation, Time.deltaTime);
+                    }
+                }
 
 				vCamObj.transform.rotation = CamStartRotation;	
 			}
